@@ -6,6 +6,7 @@ let unsortedArray = new Array(numBars);
 let randomize = document.getElementById("randomize_button");
 let bubbleButton = document.getElementById("bubble_button");
 let selectionButton = document.getElementById("selection_button");
+let insertionButton = document.getElementById("insertion_button");
 let all_bars = document.getElementById("all_bars");
 
 
@@ -97,10 +98,12 @@ async function selectionSort(array){
             let temp = array[i];
             array[i] = array[min];
             array[min] = temp;
-            bars[i].style.height = array[i] * heightFactor + "px";
-            bars[min].style.height = array[min] * heightFactor + "px";
             bars[i].style.backgroundColor = "red";
             bars[min].style.backgroundColor = "red";
+            await sleep(120);
+            bars[i].style.height = array[i] * heightFactor + "px";
+            bars[min].style.height = array[min] * heightFactor + "px";
+            
             await sleep(600);
             bars[i].style.backgroundColor = "lightgreen";
             bars[min].style.backgroundColor = "white";
@@ -115,6 +118,53 @@ async function selectionSort(array){
     return array;
 }
 
+async function insertionSort(array){
+    let bars = document.getElementsByClassName("bar");
+    for (let i = 1; i < array.length; i++) {
+        let j = i;
+        if(array[i-1] < array[i]){
+            bars[i-1].style.backgroundColor = "lightgreen";
+        }
+        else{
+            while (j > 0 && array[j-1] > array[i]) {
+                j -=1;
+        
+            }
+            let temp = array[j]
+            array[j] = array[i];
+            bars[j].style.backgroundColor = "red";
+            bars[i].style.height = 0 + "px";
+            await sleep(100);
+            bars[i].style.backgroundColor = "red";
+            bars[j].style.height = array[j] * heightFactor + "px";
+           
+            j+=1;
+            await sleep(100);
+            while (j <= i){
+                let temp1 = array[j]
+                array[j] = temp;
+                temp = temp1;
+                bars[j].style.height = array[j] * heightFactor + "px";
+                await sleep(20);
+                bars[j].style.backgroundColor = "lightgreen";
+                j +=1;
+            }
+            
+
+        }
+        await sleep(300);
+        for(let k = 0; k < bars.length; k++){
+            bars[k].style.backgroundColor = "white";
+        }
+        
+    }
+    for(let z = 0; z < bars.length; z++){
+        console.log("HELLO");
+        bars[z].style.backgroundColor = "lightgreen";
+    }
+    return array;
+}
+
 
 bubbleButton.addEventListener("click", function() {
   let sortedArray = bubbleSort(unsortedArray);
@@ -124,3 +174,9 @@ selectionButton.addEventListener("click", function() {
     let sortedArray = selectionSort(unsortedArray);
     console.log(sortedArray);
 });
+
+insertionButton.addEventListener("click", function() {
+    let sortedArray = insertionSort(unsortedArray);
+    console.log(sortedArray);
+});
+

@@ -67,17 +67,25 @@ body{
   background-color: #7ad77c;
 }
 #bubble_button{
-    background-color: #f7cf04;;
+    background-color: #caa901;;
 }
 #bubble_button:hover,
 #bubble_button:focus {
-  background-color: #fbe67e;
+  background-color: #d5c36c;
 }
 
 #selection_button{
-    background-color: #04d3f7;;
+    background-color: #02b4d3;;
 }
 #selection_button:hover,
 #selection_button:focus {
-  background-color: #a1e4ef;
+  background-color: #8dc5ce;
+}
+
+#insertion_button{
+  background-color: #c12ccf;;
+}
+#insertion_button:hover,
+#insertion_button:focus {
+background-color: #c66bcf;
 }
