@@ -34,23 +34,22 @@
 }
 
 body{
-    background-color: #580d26;
+    background-color: #420b1e;
 }
 
 
 .buttons > button{
-  border-radius: 8px;
+  border-radius: 10px;
   border-style: none;
   box-sizing: border-box;
   color: #FFFFFF;
   cursor: pointer;
-  
   font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   height: 40px;
   line-height: 20px;
-  margin: 0;
+  margin: 0px;
   padding: 10px 16px;
   position: relative;
   text-align: center;
@@ -60,7 +59,13 @@ body{
   
 }
 #randomize_button{
+    border-radius: 18px;
     background-color: #0cac0e;;
+    border-style: double;
+    height: 50px;
+    font-weight: 800;
+    
+    
 }
 #randomize_button:hover,
 #randomize_button:focus {
@@ -88,4 +93,20 @@ body{
 #insertion_button:hover,
 #insertion_button:focus {
 background-color: #c66bcf;
+}
+
+#quick_button{
+  background-color: #6300a1;;
+}
+#quick_button:hover,
+#quick_button:focus {
+background-color: #764198;
+}
+
+#merge_button{
+  background-color: #bc0a57;;
+}
+#merge_button:hover,
+#merge_button:focus {
+background-color: #b94a7a;
 }
