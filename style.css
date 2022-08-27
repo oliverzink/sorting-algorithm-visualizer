@@ -58,12 +58,38 @@ body{
   touch-action: manipulation;
   
 }
+
+#speed{
+  border-radius: 10px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  margin: 0px;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  transition: color 100ms;
+  vertical-align: baseline;
+  touch-action: manipulation;
+  background-color: #0f0092;
+  margin-left: 180px;
+}
+
+
+
 #randomize_button{
-    border-radius: 18px;
+    border-radius: 10px;
     background-color: #0cac0e;;
-    border-style: double;
-    height: 50px;
-    font-weight: 800;
+    height: 40px;
+    font-weight: 500;
+    margin-top: 10px;
+    
     
     
 }
@@ -103,10 +129,10 @@ background-color: #c66bcf;
 background-color: #764198;
 }
 
-#merge_button{
+#heap_button{
   background-color: #bc0a57;;
 }
-#merge_button:hover,
-#merge_button:focus {
+#heap_button:hover,
+#heap_button:focus {
 background-color: #b94a7a;
 }

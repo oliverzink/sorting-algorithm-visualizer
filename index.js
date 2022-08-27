@@ -1,20 +1,27 @@
 let minVal = 1;
-let maxVal = 80;
-let numBars = 80;
+let maxVal = 75;
+let numBars = 75;
 let heightFactor = 6.5;
 let unsortedArray = new Array(numBars);
 let randomize = document.getElementById("randomize_button");
 let bubbleButton = document.getElementById("bubble_button");
 let selectionButton = document.getElementById("selection_button");
 let insertionButton = document.getElementById("insertion_button");
-let mergeButton = document.getElementById("merge_button");
+// let mergeButton = document.getElementById("merge_button");
 let quickButton = document.getElementById("quick_button");
+let heapButton = document.getElementById("heap_button");
 let all_bars = document.getElementById("all_bars");
+let speed = document.getElementById("speed");
+let speedFactor = 10;
 
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+speed.addEventListener("change", (e) =>{
+    speedFactor = parseInt(e.target.value);
+} );
 
 function createRandomArray() {
   for (let i = 0; i < numBars; i++) {
@@ -68,7 +75,7 @@ async function bubbleSort(array){
                 bars[j + 1].style.height = array[j + 1] * heightFactor + "px";
                 bars[j].style.backgroundColor = "red";
                 bars[j + 1].style.backgroundColor = "red";
-                await sleep(20);
+                await sleep(2*speedFactor);
             }
             else{
                 bars[j].style.backgroundColor = "lightgreen";
@@ -93,7 +100,7 @@ async function selectionSort(array){
             if (array[j] < array[min]) {
                 min = j;
             }
-            await sleep(3);
+            await sleep(.3*speedFactor);
             bars[j].style.backgroundColor = "white";
             
             
@@ -104,18 +111,18 @@ async function selectionSort(array){
             array[min] = temp;
             bars[i].style.backgroundColor = "red";
             bars[min].style.backgroundColor = "red";
-            await sleep(120);
+            await sleep(12*speedFactor);
             bars[i].style.height = array[i] * heightFactor + "px";
             bars[min].style.height = array[min] * heightFactor + "px";
             
-            await sleep(600);
+            await sleep(60*speedFactor);
             bars[i].style.backgroundColor = "lightgreen";
             bars[min].style.backgroundColor = "white";
         }
         else{
             bars[i].style.backgroundColor = "lightgreen";
         }
-        await sleep(100);
+        await sleep(10*speedFactor);
     }
    
     return array;
@@ -137,25 +144,25 @@ async function insertionSort(array){
             array[j] = array[i];
             bars[j].style.backgroundColor = "red";
             bars[i].style.height = 0 + "px";
-            await sleep(100);
+            await sleep(10*speedFactor);
             bars[i].style.backgroundColor = "red";
             bars[j].style.height = array[j] * heightFactor + "px";
            
             j+=1;
-            await sleep(100);
+            await sleep(10*speedFactor);
             while (j <= i){
                 let temp1 = array[j]
                 array[j] = temp;
                 temp = temp1;
                 bars[j].style.height = array[j] * heightFactor + "px";
-                await sleep(20);
+                await sleep(2*speedFactor);
                 bars[j].style.backgroundColor = "lightgreen";
                 j +=1;
             }
             
 
         }
-        await sleep(300);
+        await sleep(30*speedFactor);
         for(let k = 0; k < bars.length; k++){
             bars[k].style.backgroundColor = "white";
         }
@@ -167,45 +174,51 @@ async function insertionSort(array){
     return array;
 }
 
+// function wait(ms) {
+//     var start = Date.now(),
+//         now = start;
+//     while (now - start < ms) {
+//       now = Date.now();
+//     }
+// }
 
-async function merge(left, right) {
-    let bars = document.getElementsByClassName("bar");
-    let mergedArray = [], leftIdx = 0, rightIdx = 0;
-    while (leftIdx < left.length && rightIdx < right.length){
-        if (left[leftIdx] < right[rightIdx]) {
-            mergedArray.push(left[leftIdx]);
-            bars[leftIdx].style.height = mergedArray[leftIdx] * heightFactor + "px";
-            leftIdx++;
-            // await sleep(20);
-        }
-        else{
-            mergedArray.push(right[rightIdx]);
-            bars[rightIdx].style.height = mergedArray[rightIdx] * heightFactor + "px";
-            rightIdx++;
-            // await sleep(20);
-        }
-    }
-    // return [...mergedArray, ...left, ...right]
-    return mergedArray
-          .concat(left.slice(leftIdx))
-          .concat(right.slice(rightIdx));
+// merge sort is working (it returns the sorted array), however, I am not able to get it to visualize correctly
 
-}
 
-function mergeSort(array){
-    if (array.length <= 1) {
-        return array;
-    }
-    let bars = document.getElementsByClassName("bar");
-    let mid = Math.floor(array.length / 2);
-    let left = mergeSort(array.slice(0, mid));
-    let right = mergeSort(array.slice(mid));
-    // await sleep(100);
-    // left = await mergeSort(left);
-    // right = await mergeSort(right);
+// function merge(left, right, bars) {
+//     let mergedArray = [], leftIdx = 0, rightIdx = 0;
+//     while (leftIdx < left.length && rightIdx < right.length){
+//         if (left[leftIdx] < right[rightIdx]) {
+//             mergedArray.push(left[leftIdx]);
+//             bars[leftIdx].style.height = mergedArray[leftIdx] * heightFactor + "px";
+//             leftIdx++;
+//             wait(5)
+//         }
+//         else{
+//             mergedArray.push(right[rightIdx]);
+//             bars[rightIdx].style.height = mergedArray[rightIdx] * heightFactor + "px";
+//             rightIdx++;
+//             wait(5);
+//         }
+//     }
+//     return mergedArray
+//           .concat(left.slice(leftIdx))
+//           .concat(right.slice(rightIdx));
 
-    return merge(left, right);
-}
+// }
+
+
+// function mergeSort(array){
+//     let bars = document.getElementsByClassName("bar");
+//     if (array.length <= 1) {
+//         return array;
+//     }
+//     let mid = Math.floor(array.length / 2);
+//     let left = mergeSort(array.slice(0, mid));
+//     let right = mergeSort(array.slice(mid, array.length));
+    
+//     return merge(left, right, bars);
+// }
 
 async function swap(array, leftIndex, rightIndex, bars){
     // let bars = document.getElementsByClassName("bar");
@@ -216,7 +229,7 @@ async function swap(array, leftIndex, rightIndex, bars){
     bars[rightIndex].style.height = array[rightIndex] * heightFactor + "px";
     bars[leftIndex].style.backgroundColor = "lightgreen";
     bars[rightIndex].style.backgroundColor = "lightgreen";
-    await sleep(100);
+    await sleep(10*speedFactor);
     bars[leftIndex].style.backgroundColor = "white";
     bars[rightIndex].style.backgroundColor = "white";
 
@@ -268,7 +281,17 @@ async function quickSort(array, left, right) {
     return array;
 }
 
-
+async function heapSort(array){
+    let bars = document.getElementsByClassName("bar");
+    for (let i = array.length - 1; i > 0; i--){
+        await heapify(array, i, bars);
+        await swap(array, 0, i, bars);
+        bars[i].style.backgroundColor = "lightgreen";
+        await sleep(10*speedFactor);
+        bars[i].style.backgroundColor = "white";
+    }
+    return array;
+}
 
 
 bubbleButton.addEventListener("click", function() {
@@ -285,12 +308,17 @@ insertionButton.addEventListener("click", function() {
     console.log(sortedArray);
 });
 
-mergeButton.addEventListener("click", function() {
-    let sortedArray = mergeSort(unsortedArray);
-    console.log(sortedArray);
-});
+// mergeButton.addEventListener("click", function() {
+//     let sortedArray = mergeSort(unsortedArray);
+//     console.log(sortedArray);
+// });
 
 quickButton.addEventListener("click", function() {
     let sortedArray = quickSort(unsortedArray, 0, unsortedArray.length - 1);
+    console.log(sortedArray);
+});
+
+heapButton.addEventListener("click", function() {
+    let sortedArray = heapSort(unsortedArray, 0, unsortedArray.length - 1);
     console.log(sortedArray);
 });
