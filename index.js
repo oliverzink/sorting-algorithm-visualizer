@@ -232,7 +232,6 @@ async function swap(array, leftIndex, rightIndex, bars){
     await sleep(10*speedFactor);
     bars[leftIndex].style.backgroundColor = "white";
     bars[rightIndex].style.backgroundColor = "white";
-
 }
 
 async function partition(array, left, right) {
@@ -283,14 +282,50 @@ async function quickSort(array, left, right) {
 
 async function heapSort(array){
     let bars = document.getElementsByClassName("bar");
-    for (let i = array.length - 1; i > 0; i--){
-        await heapify(array, i, bars);
-        await swap(array, 0, i, bars);
+    for (let i = Math.floor(array.length / 2); i >= 0; i--) {
+        await maxHeapify(array, array.length, i);
+    }
+    for (let i = array.length - 1; i >= 0; i--) {
+        let temp = array[0];
+        array[0] = array[i];
+        array[i] = temp;
+        bars[0].style.height = array[0] * heightFactor + "px";
+        bars[i].style.height = array[i] * heightFactor + "px";
+        await sleep(6*speedFactor);
+        bars[0].style.backgroundColor = "lightgreen";
         bars[i].style.backgroundColor = "lightgreen";
-        await sleep(10*speedFactor);
-        bars[i].style.backgroundColor = "white";
+        
+        await maxHeapify(array, i, 0);
     }
     return array;
+}
+
+async function maxHeapify(array, n, i){
+    let bars = document.getElementsByClassName("bar");
+    let largest = i;
+    let l = 2 * i + 1;
+    let r = 2 * i + 2;
+    if (l < n && array[l] > array[largest]){
+        largest = l;
+    }
+    if (r < n && array[r] > array[largest]){
+        largest = r;
+    }
+    if (largest !== i){
+        let temp = array[i];
+        array[i] = array[largest];
+        array[largest] = temp;
+        bars[i].style.height = array[i] * heightFactor + "px";
+        bars[largest].style.height = array[largest] * heightFactor + "px";
+        bars[i].style.backgroundColor = "red";
+        bars[largest].style.backgroundColor = "red";
+        await sleep(6*speedFactor);
+        await maxHeapify(array, n, largest);
+
+        for (let j = 0; j < n; j++){
+            bars[j].style.backgroundColor = "white";
+        }
+    }
 }
 
 
@@ -319,6 +354,6 @@ quickButton.addEventListener("click", function() {
 });
 
 heapButton.addEventListener("click", function() {
-    let sortedArray = heapSort(unsortedArray, 0, unsortedArray.length - 1);
+    let sortedArray = heapSort(unsortedArray);
     console.log(sortedArray);
 });
