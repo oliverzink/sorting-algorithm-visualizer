@@ -55,6 +55,16 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+
+function hideButtons() {
+    document.getElementById('bubble_button').disabled = true;
+    document.getElementById('selection_button').disabled = true;
+    document.getElementById('insertion_button').disabled = true;
+    document.getElementById('quick_button').disabled = true;
+    document.getElementById('heap_button').disabled = true;
+ }
+
+
 async function bubbleSort(array){
     let bars = document.getElementsByClassName("bar");
     for (let i = 0; i < array.length; i++) {
@@ -330,17 +340,21 @@ async function maxHeapify(array, n, i){
 
 
 bubbleButton.addEventListener("click", function() {
-  let sortedArray = bubbleSort(unsortedArray);
-  console.log(sortedArray);
+    hideButtons();
+    let sortedArray = bubbleSort(unsortedArray);
+    console.log(sortedArray);
 });
 selectionButton.addEventListener("click", function() {
+    hideButtons();
     let sortedArray = selectionSort(unsortedArray);
     console.log(sortedArray);
 });
 
 insertionButton.addEventListener("click", function() {
+    hideButtons();
     let sortedArray = insertionSort(unsortedArray);
     console.log(sortedArray);
+    
 });
 
 // mergeButton.addEventListener("click", function() {
@@ -349,11 +363,14 @@ insertionButton.addEventListener("click", function() {
 // });
 
 quickButton.addEventListener("click", function() {
+    hideButtons();
     let sortedArray = quickSort(unsortedArray, 0, unsortedArray.length - 1);
     console.log(sortedArray);
 });
 
 heapButton.addEventListener("click", function() {
+    hideButtons();
     let sortedArray = heapSort(unsortedArray);
     console.log(sortedArray);
+    
 });
